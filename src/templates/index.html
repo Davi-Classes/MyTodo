@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do List</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <div id="root" class="wrapper">
+      <aside>
+        <h1>Minhas Tarefas</h1>
+        <hr>
+        <nav>
+          <ul>
+            <li><a href="/tarefas/listar"> Listar Tarefas </a></li>
+            <li><a href=""> Cadstrar Tarefa </a></li>
+          </ul>
+        </nav>
+      </aside>
+      <main>
+        <header>
+          <h2> Listagem de Tarefas </h2>
+          <div class="user-area">
+            <span>
+              Olá, <strong> Davi </strong>
+            </span>
+            <img src="/static/blank-profile.webp" alt="profile-pic">
+          </div>
+        </header>
+        <section id="content">
+          <table>
+            <thead>
+              <tr>
+                <td>Id</td>
+                <td>Nome</td>
+                <td>Data Inicio</td>
+                <td>Data Conclusão</td>
+                <td>Concluida</td>
+                <td>Ações</td>
+              </tr>
+            </thead>
+            <tbody>
+              {% for tarefa in tarefas %}
+              <tr>
+                <td>{{ tarefa.get('id') }}</td>
+                <td>{{ tarefa.get('nome') }}</td>
+                <td>{{ tarefa.get('data_inicio').strftime('%d/%m/%Y') }}</td>
+                <td>
+                  {% if tarefa.get('data_conclusao') == None %} 
+                    ------------
+                  {% else %} {{
+                  tarefa.get('data_conclusao').strftime('%d/%m/%Y') }} {% endif
+                  %}
+                </td>
+                <td>
+                  {% if tarefa.get('concluida') == True %} 
+                    Sim 
+                  {% else %} 
+                    Não 
+                  {% endif %}
+                </td>
+                <td>
+                  <a href="" class="edit">
+                    Editar
+                  </a>
+                  <a href="/tarefas/{{tarefa.get('id')}}/delete" class="delete">
+                    Excluir
+                  </a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,242 @@
+/* 
+60 - Cores Neutras (Preto, Branco)
+30 - Cores de Branding
+10 - Cores Call to Action
+*/
+:root {
+  --bg-black-100: #313131;
+  --bg-black-200: #222222;
+  --fs-white: #fafafa;
+  --fg-red: #a31621;
+  --fg-red-hover: #82121c;
+  --fg-blue: #1E91D6;
+  --fg-blue-hover: #1873ab;
+
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Reset de CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+
+  color: var(--fs-white);
+}
+
+#root {
+  display: flex;
+  min-height: 100vh;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+/* Side Bar */
+#root aside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+
+  min-width: 20rem;
+  max-width: 20rem;
+  padding-block: 2rem;
+  padding-inline: 2rem;
+  background-color: var(--bg-black-100);
+
+  border-right: 2px solid var(--fg-red);
+}
+
+#root aside > * {
+  width: 100%;
+}
+
+#root hr {
+  height: 1px;
+  background-color: var(--fg-red);
+  border: none;
+}
+
+#root aside nav {
+  flex: 1;
+}
+
+#root aside ul {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+#root aside ul li {
+  display: flex;
+  width: 100%;
+  border-radius: 16px;
+  background-color: var(--bg-black-200);
+}
+
+#root aside ul li a {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  padding: 0.8rem 1.2rem;
+  border-radius: 16px;
+  transition: 0.3s;
+}
+
+#root aside ul li a:hover {
+  background-color: var(--fg-red);
+}
+
+#root main {
+  width: 100%;
+  background-color: var(--bg-black-200);
+}
+
+/* Estilizando o Header */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--fs-white);
+  padding: 3rem;
+  background-color: var(--bg-black-100);
+}
+
+.user-area {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+header img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+
+
+/* Content Area */
+#content {
+  padding: 3rem;
+}
+
+/* Formulário */
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+form button {
+  width: 50%;
+  height: 32px;
+  color: var(--fs-white);
+  background-color: var(--fg-red);
+
+  border: none;
+  border-radius: 32px;
+  transition: 0.3s;
+
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: var(--fg-red-hover);
+}
+
+.form-container {
+  width: 50%;
+  display: flex;
+  gap: 16px;
+}
+
+.form-item {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-item input,
+.form-item textarea {
+  border: none;
+  border-radius: 8px;
+  color: var(--bg-black-200);
+  padding-inline: 8px;
+}
+
+.form-item input {
+  height: 32px;
+  /* padding-left: 4px; */
+}
+
+.form-item textarea {
+  height: 64px;
+  padding-top: 8px;
+  padding-inline: 4px;
+
+  resize: none;
+}
+
+/* Listagem */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+thead tr {
+  background-color: var(--fg-red);
+}
+
+th,
+td {
+  border-bottom: 2px solid var(--fg-red);
+  padding: 12px;
+  text-align: left;
+}
+
+tbody tr {
+  transition: 0.3s;
+}
+
+tbody tr:hover {
+  background-color: var(--bg-black-100);
+}
+
+.delete {
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: var(--fg-red);
+  transition: 0.3s;
+}
+
+.delete:hover {
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: var(--fg-red-hover);
+}
+
+.edit {
+  margin-right: 8px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: var(--fg-blue);
+  transition: 0.3s;
+}
+
+.edit:hover {
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: var(--fg-blue-hover);
+}
