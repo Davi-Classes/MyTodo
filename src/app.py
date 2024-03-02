@@ -9,8 +9,12 @@ app = Flask(__name__)
 
 # View Routes
 @app.route("/tarefas/listar", methods=["GET"])
-def index(message: str = None):
-    return render_template("index.html", tarefas=tarefas, message=message)
+def index():
+    return render_template("index.html", tarefas=tarefas)
+
+@app.route('/tarefas/criar', methods=['GET'])
+def create():
+    return render_template("create.html")
 
 # Action Routes
 @app.route("/tarefas", methods=["POST"])

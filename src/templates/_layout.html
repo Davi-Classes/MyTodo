@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do List</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <div id="root" class="wrapper">
+      <aside>
+        <h1>Minhas Tarefas</h1>
+        <hr>
+        <nav>
+          <ul>
+            <li><a href="/tarefas/listar"> Listar Tarefas </a></li>
+            <li><a href="/tarefas/criar"> Cadastrar Tarefa </a></li>
+          </ul>
+        </nav>
+      </aside>
+      <main>
+        <header>
+          {% block title %}
+          {% endblock %}
+          <div class="user-area">
+            <span>
+              Olá, <strong> Davi </strong>
+            </span>
+            <img src="/static/blank-profile.webp" alt="profile-pic">
+          </div>
+        </header>
+        {% block content %}
+        {% endblock %}
+      </main>
+    </div>
+  </body>
+</html>
