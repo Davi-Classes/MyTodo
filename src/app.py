@@ -22,8 +22,13 @@ def index():
 def create():
     return render_template("create.html")
 
+@app.route('/tarefas/<int:id>/edit', methods=['GET'])
+def edit(id: int):
+    tarefa = db.session.query(Tarefa).get(id)
+    return render_template("edit.html", tarefa=tarefa)
+
 # Action Routes
-@app.route("/tarefas", methods=["POST"])
+@app.route("/tarefas/save", methods=["POST"])
 def save():
     form_data = dict(request.form)
     
@@ -38,18 +43,27 @@ def save():
     
     return redirect("/tarefas/listar")
 
+@app.route("/tarefas/update", methods=["POST"])
+def update():
+    form_data = dict(request.form)
+    
+    id = form_data.get('id')
+    tarefa_db: Tarefa = db.session.query(Tarefa).get(id)
+    
+    tarefa_db.update(form_data)
+    db.session.commit()
+    
+    return redirect("/tarefas/listar")
+
 
 @app.route("/tarefas/<int:id>/delete", methods=["GET"])
 def delete(id: int):
-    pass
-    # for i, tarefa in enumerate(tarefas):
-    #     if tarefa.get("id") == id:
-    #         tarefas.pop(i)
-    #         return redirect("/tarefas/listar")
+    tarefa = db.session.query(Tarefa).get(id)
+    
+    db.session.delete(tarefa)
+    db.session.commit()
 
-    # return render_template(
-    #     "index.html", tarefas=tarefas, message="Tarefa não encontrada"
-    # )
+    return redirect("/tarefas/listar")
 
 with app.app_context():
     db.init_app(app)

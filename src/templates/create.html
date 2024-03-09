@@ -6,15 +6,15 @@
 
 {% block content %}
   <section id="content">
-    <form action="/tarefas" method="POST">
+    <form action="/tarefas/save" method="POST">
       <div class="form-container">
         <div class="form-item">
           <label for="nome"> Tarefa </label>
-          <input type="text" name="nome" id="nome" />
+          <input type="text" name="nome" id="nome" required/>
         </div>
         <div class="form-item">
           <label for="data-inicio"> Data de Inicio </label>
-          <input type="date" name="data_inicio" id="data-inicio" />
+          <input type="date" name="data_inicio" id="data-inicio" required/>
         </div>
       </div>
       <div class="form-item">

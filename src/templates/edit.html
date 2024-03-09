@@ -1,0 +1,36 @@
+{% extends '_layout.html '%} 
+
+{% block title %}
+  <h2> Editar de Tarefa </h2>
+{% endblock %}
+
+{% block content %}
+  <section id="content">
+    <form action="/tarefas/update" method="POST">
+      <div class="form-container">
+        <input type="text" name="id" value="{{ tarefa.id }}" hidden>
+        <div class="form-item">
+          <label for="nome"> Tarefa </label>
+          <input type="text" name="nome" id="nome" value="{{ tarefa.nome }}" required/>
+        </div>
+        <div class="form-item">
+          <label for="data-inicio"> Data de Inicio </label>
+          <input type="date" name="data_inicio" id="data-inicio" value="{{ tarefa.data_inicio.strftime('%Y-%m-%d') }}" required/>
+        </div>
+      </div>
+      <div class="form-item">
+        <label for="data-conclusao"> Data de Conclusao </label>
+        <input type="date" name="data_conclusao" id="data-conclusao" value="{{ 
+          tarefa.data_conclusao.strftime('%d/%m/%Y') 
+          if tarefa.data_conclusao != None
+          else ''
+        }}" />
+      </div>
+      <div class="form-item">
+        <label for="descricao"> Descricao </label>
+        <textarea name="descricao" id="descricao">{{ tarefa.descricao }}</textarea>
+      </div>
+      <button type="submit"> Salvar </button>
+    </form>
+  </section>
+{% endblock %}
