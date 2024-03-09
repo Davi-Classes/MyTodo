@@ -27,8 +27,8 @@
             {% if tarefa.data_conclusao == None %} 
               ------------
             {% else %} {{
-            tarefa.data_conclusao.strftime('%d/%m/%Y') }} {% endif
-            %}
+              tarefa.data_conclusao.strftime('%d/%m/%Y') }} 
+            {% endif %}
           </td>
           <td>
             {% if tarefa.concluida == True %} 

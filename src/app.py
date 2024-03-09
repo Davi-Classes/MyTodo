@@ -1,18 +1,22 @@
 from datetime import datetime as dt
 from flask import Flask, render_template, redirect, request
-from db import db, migrate
-from models import Tarefa
+from db import DATABASE_URI, db, migrate
+from models import *
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/task_list'
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 
 
 # View Routes
+@app.route("/", methods=["GET"])
+def root():
+    return redirect('/tarefas/listar')
+
 @app.route("/tarefas/listar", methods=["GET"])
 def index():
-    pass
-    # return render_template("index.html", tarefas=tarefas)
+    tarefas = db.session.query(Tarefa).all()
+    return render_template("index.html", tarefas=tarefas)
 
 @app.route('/tarefas/criar', methods=['GET'])
 def create():
@@ -22,17 +26,16 @@ def create():
 @app.route("/tarefas", methods=["POST"])
 def save():
     form_data = dict(request.form)
-
-    # tarefa = {
-    #     "id": get_new_id(tarefas),
-    #     "nome": form_data.get("nome"),
-    #     "descricao": form_data.get("descricao"),
-    #     "data_inicio": dt.strptime(form_data.get("data_inicio"), "%Y-%m-%d").date(),
-    #     "data_conclusao": None,
-    #     "concluida": False,
-    # }
-    # tarefas.append(tarefa)
-
+    
+    tarefa = Tarefa(
+        form_data.get("nome"),
+        form_data.get("descricao"),
+        dt.strptime(form_data.get("data_inicio"), "%Y-%m-%d").date(),
+        form_data.get("data_conclusao")
+    )
+    db.session.add(tarefa)
+    db.session.commit()
+    
     return redirect("/tarefas/listar")
 
 
