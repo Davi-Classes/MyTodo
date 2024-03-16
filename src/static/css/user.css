@@ -1,0 +1,110 @@
+:root {
+  --bg-black-100: #313131;
+  --bg-black-200: #222222;
+  --bg-white: #eaeaea;
+  --fs-white: #fafafa;
+  --fg-red: #a31621;
+  --fg-red-hover: #82121c;
+  --fg-blue: #1e91d6;
+  --fg-blue-hover: #1873ab;
+
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 100vh;
+
+  background: rgb(49, 49, 49);
+  background: radial-gradient(
+    circle,
+    rgba(49, 49, 49, 1) 37%,
+    rgba(163, 22, 33, 1) 95%
+  );
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+
+  min-width: 512px;
+  padding: 64px 48px;
+  border-radius: 32px;
+
+  background-color: var(--fs-white);
+}
+
+h1 {
+  width: 80%;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+form button {
+  width: 80%;
+  height: 48px;
+  color: var(--fs-white);
+  background-color: var(--fg-red);
+
+  font-size: 24px;
+  border: none;
+  border-radius: 32px;
+  transition: 0.3s;
+
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: var(--fg-red-hover);
+}
+
+.form-item {
+  width: 80%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.form-item label {
+  font-size: 24px;
+}
+
+.form-item input {
+  width: 100%;
+  height: 48px;
+
+  font-size: 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--bg-white);
+  color: var(--bg-black-200);
+  padding-inline: 8px;
+}
+
+.form-item input:focus,
+.form-item input:hover {
+  outline-color: var(--fg-red);
+}
+
+.form-container {
+  width: 75%;
+}

@@ -1,0 +1,26 @@
+{% extends 'user/_layout.html' %}
+
+{% block title %}
+  <title> Minhas Tarefas - Login </title>
+{% endblock %}
+
+{% block main %} 
+  <main>
+    <h1> Login </h1>
+    <form action="">
+      <div class="form-item">
+        <label for="nome"> Usuario </label>
+        <input type="text" name="nome" id="nome" autocomplete="off" autofocus>
+      </div>
+      <div class="form-item">
+        <label for="senha"> Senha </label>
+        <input type="password" name="senha" id="senha" autocomplete="off">
+      </div>
+      <div class="form-container">
+        <input type="checkbox" name="lembrar" id="lembrar">
+        <label for="lembrar"> Mantenha-me Conectado </label>
+      </div>
+      <button type="submit"> Entrar </button>
+    </form>
+  </main>
+{% endblock %}

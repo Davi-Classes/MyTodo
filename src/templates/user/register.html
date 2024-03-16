@@ -1,0 +1,26 @@
+{% extends 'user/_layout.html' %}
+
+{% block title %}
+  <title> Minhas Tarefas - Registrar </title>
+{% endblock %}
+
+{% block main %}
+  <main>
+    <h1> Registre-se </h1>
+    <form action="">
+      <div class="form-item">
+        <label for="nome"> Usuario </label>
+        <input type="text" name="nome" id="nome" autocomplete="off" autofocus>
+      </div>
+      <div class="form-item">
+        <label for="senha"> Senha </label>
+        <input type="password" name="senha" id="senha" autocomplete="off">
+      </div>
+      <div class="form-item">
+        <label for="confirmar-senha"> Confirmar Senha </label>
+        <input type="password" name="confirmar-senha" id="confirmar-senha" autocomplete="off">
+      </div>
+      <button type="submit"> Criar Conta </button>
+    </form>
+  </main>
+{% endblock %}

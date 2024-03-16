@@ -13,19 +13,27 @@ app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 def root():
     return redirect('/tarefas/listar')
 
+@app.route("/login", methods=["GET"])
+def login():
+    return render_template('user/login.html')
+
+@app.route("/registrar", methods=["GET"])
+def register():
+    return render_template('user/register.html')
+
 @app.route("/tarefas/listar", methods=["GET"])
 def index():
     tarefas = db.session.query(Tarefa).all()
-    return render_template("index.html", tarefas=tarefas)
+    return render_template("tarefa/index.html", tarefas=tarefas)
 
 @app.route('/tarefas/criar', methods=['GET'])
 def create():
-    return render_template("create.html")
+    return render_template("tarefa/create.html")
 
 @app.route('/tarefas/<int:id>/edit', methods=['GET'])
 def edit(id: int):
     tarefa = db.session.query(Tarefa).get(id)
-    return render_template("edit.html", tarefa=tarefa)
+    return render_template("tarefa/edit.html", tarefa=tarefa)
 
 # Action Routes
 @app.route("/tarefas/save", methods=["POST"])

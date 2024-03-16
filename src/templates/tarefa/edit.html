@@ -1,4 +1,4 @@
-{% extends '_layout.html' %} 
+{% extends 'tarefa/_layout.html' %} 
 
 {% block title %}
   <h2> Editar de Tarefa </h2>
@@ -7,8 +7,8 @@
 {% block content %}
   <section id="content">
     <form action="/tarefas/update" method="POST">
+      <input type="text" name="id" value="{{ tarefa.id }}" hidden>
       <div class="form-container">
-        <input type="text" name="id" value="{{ tarefa.id }}" hidden>
         <div class="form-item">
           <label for="nome"> Tarefa </label>
           <input type="text" name="nome" id="nome" value="{{ tarefa.nome }}" required/>
