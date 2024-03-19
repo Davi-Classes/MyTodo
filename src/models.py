@@ -1,6 +1,9 @@
-from db import db
 from datetime import datetime as dt, date
-from sqlalchemy import Column, Integer, String, Boolean, Date
+from sqlalchemy import Column, ForeignKey, Integer, String, Boolean, Date
+from sqlalchemy.orm import Mapped, relationship
+from flask_login import UserMixin
+from werkzeug.security import check_password_hash, generate_password_hash
+from db import db
 
 
 class Tarefa(db.Model):
@@ -13,18 +16,23 @@ class Tarefa(db.Model):
     data_conclusao = Column(Date)
     concluida = Column(Boolean, nullable=False, default=False)
 
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    user: Mapped["User"] = relationship("User", back_populates="tarefas")
+
     def __init__(
         self, 
         nome: str, 
         descricao: str,
         data_inicio: date,
-        data_conclusao: date
+        data_conclusao: date,
+        user_id: int
     ) -> None:
         self.nome = nome
         self.descricao = descricao
         self.data_inicio = data_inicio
         self.data_conclusao = data_conclusao
         self.concluida =  True if data_conclusao is not None else False
+        self.user_id = user_id
 
     def update(self, tarefa: dict):
         self.nome = tarefa.get('nome')
@@ -39,3 +47,20 @@ class Tarefa(db.Model):
             self.data_conclusao = None
             self.concluida = False
         
+class User(db.Model, UserMixin):
+    __tablename__ = 'users'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    nome = Column(String(255), nullable=False)
+    senha = Column(String(255), nullable=False)
+    ativo = Column(Boolean, nullable=False, default=True)
+
+    tarefas: Mapped[list["Tarefa"]] = relationship("Tarefa", back_populates="user")
+
+    def __init__(self, nome: str, senha: str) -> None:
+        self.nome = nome
+        self.senha = generate_password_hash(senha)
+    
+    def verificar_senha(self, senha_plana: str) -> bool:
+        return check_password_hash(self.senha, senha_plana)
+    

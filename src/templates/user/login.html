@@ -7,7 +7,14 @@
 {% block main %} 
   <main>
     <h1> Login </h1>
-    <form action="">
+    {% with messages = get_flashed_messages(true) %}
+      {% if messages %}
+        <p class="{{messages[0][0]}}">
+          {{ messages[0][1] }}
+        </p>
+      {% endif %}
+    {% endwith %}
+    <form action="/login" method="POST">
       <div class="form-item">
         <label for="nome"> Usuario </label>
         <input type="text" name="nome" id="nome" autocomplete="off" autofocus>
@@ -22,5 +29,6 @@
       </div>
       <button type="submit"> Entrar </button>
     </form>
+    <p> Não tem conta? <a href="/registrar"> Cadastre-se </a></p>
   </main>
 {% endblock %}
