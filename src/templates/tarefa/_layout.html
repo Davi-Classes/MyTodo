@@ -25,9 +25,10 @@
           {% endblock %}
           <div class="user-area">
             <span>
-              Olá, <strong> Davi </strong>
+              Olá, <strong> {{ username }} </strong>
             </span>
             <img src="/static/blank-profile.webp" alt="profile-pic">
+            <a href="/logout"> Sair </a>
           </div>
         </header>
         {% block content %}

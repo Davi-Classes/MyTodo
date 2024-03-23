@@ -3,6 +3,7 @@ from datetime import datetime as dt, date
 from sqlalchemy import Column, Integer, String, Boolean, Date, ForeignKey
 from sqlalchemy.orm import Mapped, relationship
 from werkzeug.security import check_password_hash, generate_password_hash
+from flask_login import UserMixin
 
 
 class Tarefa(db.Model):
@@ -23,13 +24,15 @@ class Tarefa(db.Model):
         nome: str, 
         descricao: str,
         data_inicio: date,
-        data_conclusao: date
+        data_conclusao: date,
+        user_id: int
     ) -> None:
         self.nome = nome
         self.descricao = descricao
         self.data_inicio = data_inicio
         self.data_conclusao = data_conclusao
         self.concluida =  True if data_conclusao is not None else False
+        self.user_id = user_id
 
     def update(self, tarefa: dict):
         self.nome = tarefa.get('nome')
@@ -45,7 +48,7 @@ class Tarefa(db.Model):
             self.concluida = False
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
