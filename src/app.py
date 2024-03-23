@@ -30,7 +30,7 @@ def index():
 def create():
     return render_template("tarefa/create.html")
 
-@app.route('/tarefas/<int:id>/edit', methods=['GET'])
+@app.route('/tarefas/<int:id>/editar', methods=['GET'])
 def edit(id: int):
     tarefa = db.session.query(Tarefa).get(id)
     return render_template("tarefa/edit.html", tarefa=tarefa)
