@@ -1,6 +1,8 @@
 from db import db
 from datetime import datetime as dt, date
-from sqlalchemy import Column, Integer, String, Boolean, Date
+from sqlalchemy import Column, Integer, String, Boolean, Date, ForeignKey
+from sqlalchemy.orm import Mapped, relationship
+from werkzeug.security import check_password_hash, generate_password_hash
 
 
 class Tarefa(db.Model):
@@ -12,6 +14,9 @@ class Tarefa(db.Model):
     data_inicio = Column(Date, nullable=False, default=dt.now().date())
     data_conclusao = Column(Date)
     concluida = Column(Boolean, nullable=False, default=False)
+
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    user: Mapped["User"] = relationship("User", back_populates="tarefas")
 
     def __init__(
         self, 
@@ -38,4 +43,21 @@ class Tarefa(db.Model):
         else:
             self.data_conclusao = None
             self.concluida = False
-        
+
+
+class User(db.Model):
+    __tablename__ = 'users'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    nome = Column(String(255), nullable=False)
+    senha = Column(String(255), nullable=False)
+    ativo = Column(Boolean, nullable=False, default=True)
+		
+    tarefas: Mapped[list["Tarefa"]] = relationship("Tarefa", back_populates="user")
+		
+    def __init__(self, nome: str, senha: str) -> None:
+        self.nome = nome
+        self.senha = generate_password_hash(senha)
+    
+    def verificar_senha(self, senha_plana: str) -> bool:
+        return check_password_hash(self.senha, senha_plana)

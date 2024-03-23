@@ -7,6 +7,15 @@
 {% block main %} 
   <main>
     <h1> Login </h1>
+    {% with messages = get_flashed_messages(true) %}
+      {% if messages %}
+        <!-- Buscando a categoria da 1ª mensagem -->
+        <p class="{{messages[0][0]}}">
+          <!-- Buscando o texto da 1ª mensagem -->
+          {{ messages[0][1] }}
+        </p>
+      {% endif %}
+    {% endwith %}
     <form action="">
       <div class="form-item">
         <label for="nome"> Usuario </label>

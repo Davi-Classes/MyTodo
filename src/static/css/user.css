@@ -108,3 +108,13 @@ form button:hover {
 .form-container {
   width: 75%;
 }
+
+.error {
+  color: red;
+  width: 80%;
+}
+
+.success {
+  color: forestgreen;
+  width: 80%;
+}

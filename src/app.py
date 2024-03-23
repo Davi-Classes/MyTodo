@@ -1,11 +1,17 @@
+import os
 from datetime import datetime as dt
-from flask import Flask, render_template, redirect, request
-from db import DATABASE_URI, db, migrate
+from flask import Flask, render_template, redirect, request, flash
+from db import db, migrate
 from models import *
+from dotenv import load_dotenv
+
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
+
+load_dotenv()
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI')
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
 
 # View Routes
@@ -36,6 +42,38 @@ def edit(id: int):
     return render_template("tarefa/edit.html", tarefa=tarefa)
 
 # Action Routes
+@app.route('/registrar', methods=["POST"])
+def save_user():
+    form_data = dict(request.form)
+
+    nome = form_data.get('nome')
+    senha = form_data.get('senha')
+    confirmar_senha = form_data.get('confirmar-senha')
+
+	# Validação de criação de senha
+    if senha != confirmar_senha:
+        flash('As senhas não batem.', category='error')
+        return redirect('/registrar')
+
+	# Validação de usuário existente
+    user_exists = db.session.query(User)\
+        .where(User.nome == nome).first()
+        
+    if user_exists:
+        flash('Usuário já existente', category='error')
+        return redirect('/registrar')
+		
+	# Criando usuário
+    user = User(nome, senha)
+    
+    # Persistindo no banco de dados
+    db.session.add(user)
+    db.session.commit()
+
+    flash('Usuário cadastrado com sucesso.', category='success')
+    return redirect('/login')
+
+
 @app.route("/tarefas/save", methods=["POST"])
 def save():
     form_data = dict(request.form)
